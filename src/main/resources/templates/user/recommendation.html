@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>书籍查询</title>
+    <link rel="stylesheet" type="text/css" href="/css/jquery.pagination.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/js/ckform.js"></script>
+    <script type="text/javascript" src="/js/common.js"></script>
+    <script type="text/javascript" src="/js/jquery.pagination.min.js"></script>
+</head>
+<body>
+<table class="table table-bordered table-hover definewidth m10">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>书籍名称</th>
+        <th>书籍类别</th>
+        <th>作者</th>
+        <th>出版社</th>
+        <th>版本</th>
+        <th>推荐数量</th>
+        <th>审核状态</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="recommendation : ${recommendationList}">
+        <td th:text="${recommendation.id}"></td>
+        <td th:text="${recommendation.name}"></td>
+        <td th:text="${recommendation.sid}"></td>
+        <td th:text="${recommendation.author}"></td>
+        <td th:text="${recommendation.publish}"></td>
+        <td th:text="${recommendation.edition}"></td>
+        <td th:text="${recommendation.number}"></td>
+        <td th:text="${recommendation.status == null ? '待审核' : recommendation.status}"></td>
+        <td>
+            <form th:action="@{/book/addFromRecommend}" method="post">
+                <input type="hidden" name="id" th:value="${recommendation.id}"/>
+                <input type="hidden" name="name" th:value="${recommendation.name}"/>
+                <input type="hidden" name="sid" th:value="${recommendation.sid}"/>
+                <input type="hidden" name="author" th:value="${recommendation.author}"/>
+                <input type="hidden" name="publish" th:value="${recommendation.publish}"/>
+                <input type="hidden" name="edition" th:value="${recommendation.edition}"/>
+                <input type="hidden" name="number" th:value="${recommendation.number}"/>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

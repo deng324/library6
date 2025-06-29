@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>提交荐购</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+<div class="container">
+    <h2>提交书籍荐购</h2>
+    <form action="/recommendation/add" method="post">
+        <div class="form-group">
+            <label for="name">书籍名称</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="sid">书籍类别</label>
+            <select class="form-control" id="sid" name="sid" required>
+                <option th:each="sort : ${list}" th:value="${sort.id}" th:text="${sort.name}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="author">作者</label>
+            <input type="text" class="form-control" id="author" name="author" required>
+        </div>
+        <div class="form-group">
+            <label for="publish">出版社</label>
+            <input type="text" class="form-control" id="publish" name="publish" required>
+        </div>
+        <div class="form-group">
+            <label for="edition">版本</label>
+            <input type="text" class="form-control" id="edition" name="edition" required>
+        </div>
+        <div class="form-group">
+            <label for="number">推荐数量</label>
+            <input type="number" class="form-control" id="number" name="number" min="1" required>
+        </div>
+        <button type="submit" class="btn btn-primary">提交荐购</button>
+    </form>
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        [[${error}]]
+    </div>
+
+</div>
+</body>
+</html>

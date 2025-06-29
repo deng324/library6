@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>荐购列表 - 管理员</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+
+<div class="container" style="margin-top: 40px;">
+    <h3>荐购书籍管理</h3>
+    <table class="table table-bordered table-hover definewidth m10">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>书籍名称</th>
+            <th>类别ID</th>
+            <th>作者</th>
+            <th>出版社</th>
+            <th>版本</th>
+            <th>数量</th>
+            <th>状态</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rec : ${recommendationList}">
+            <td th:text="${rec.id}"></td>
+            <td th:text="${rec.name}"></td>
+            <td th:text="${rec.sid}"></td>
+            <td th:text="${rec.author}"></td>
+            <td th:text="${rec.publish}"></td>
+            <td th:text="${rec.edition}"></td>
+            <td th:text="${rec.number}"></td>
+            <td th:text="${rec.status}"></td>
+            <td>
+            <td th:if="${rec.status == null or rec.status == ''}">
+                <a class="btn btn-primary" th:href="@{/book/addFromRecommend(id=${rec.id})}">同意</a>
+                <a class="btn btn-danger" th:href="@{/recommendation/reject(id=${rec.id})}">拒绝</a>
+            </td>
+            <td th:unless="${rec.status == null or rec.status == ''}">
+                <span class="btn btn-secondary disabled" aria-disabled="true">已处理</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
